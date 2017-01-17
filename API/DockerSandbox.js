@@ -20,7 +20,7 @@
          * @param {String} code: The actual code
          * @param {String} output_command: Used in case of compilers only, to execute the object code, send " " in case of interpretors
 */
-var DockerSandbox = function(timeout_value,path,folder,vm_name,compiler_name,file_name,code,output_command,languageName,e_arguments,stdin_data)
+var DockerSandbox = function(timeout_value,path,folder,parameters,vm_name,compiler_name,file_name,code,output_command,languageName,e_arguments,stdin_data)
 {
 
     this.timeout_value=timeout_value;
@@ -32,7 +32,12 @@ var DockerSandbox = function(timeout_value,path,folder,vm_name,compiler_name,fil
     this.code = code;
     this.output_command=output_command;
     this.langName=languageName;
-    this.extra_arguments=e_arguments;
+    if(output_command=="nul"){
+	this.extra_arguments=parameters;
+    }
+    else{
+	this.extra_arguments=e_arguments;
+    }
     this.stdin_data=stdin_data;
 }
 

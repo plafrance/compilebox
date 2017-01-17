@@ -44,8 +44,8 @@ exec  2> $"/usercode/errors"
 
 START=$(date +%s.%2N)
 #Branch 1
-if [ "$output" = "" ]; then
-    $compiler /usercode/$file -< $"/usercode/inputFile" #| tee /usercode/output.txt
+if [ "$output" = "nul" ]; then
+    $compiler /usercode/$file $addtionalArg< $"/usercode/inputFile" #| tee /usercode/output.txt
 #Branch 2
 else
 	#In case of compile errors, redirect them to a file
