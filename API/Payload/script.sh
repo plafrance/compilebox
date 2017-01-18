@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export PYTHONIOENCODING=utf-8
+
 ########################################################################
 #	- This is the main script that is used to compile/interpret the source code
 #	- The script takes 3 arguments

@@ -17,6 +17,7 @@
 */
 
 exports.compilerArray= [ ["python","file.py","nul","Python",""],
+			 ["python3","file.py","nul","Python 3",""],
 			 ["ruby","file.rb","nul","Ruby",""],
 			 ["clojure","file.clj","nul","Clojure",""],
 			 ["php","file.php","nul","Php",""],
