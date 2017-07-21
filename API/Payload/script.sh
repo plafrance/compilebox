@@ -17,7 +17,7 @@ compiler=$1
 file=$2
 output=$3
 addtionalArg=$4
-
+params=$5
 
 ########################################################################
 #	- The script works as follows
@@ -47,14 +47,14 @@ exec  2> $"/usercode/errors"
 START=$(date +%s.%2N)
 #Branch 1
 if [ "$output" = "nul" ]; then
-    $compiler /usercode/$file $addtionalArg< $"/usercode/inputFile" #| tee /usercode/output.txt
+    $compiler /usercode/$file $params< $"/usercode/inputFile" #| tee /usercode/output.txt
 #Branch 2
 else
 	#In case of compile errors, redirect them to a file
         $compiler /usercode/$file $addtionalArg #&> /usercode/errors.txt
 	#Branch 2a
 	if [ $? -eq 0 ];	then
-		$output -< $"/usercode/inputFile" #| tee /usercode/output.txt    
+		$output $params < $"/usercode/inputFile" #| tee /usercode/output.txt    
 	#Branch 2b
 	else
 	    echo "Compilation Failed"

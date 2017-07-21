@@ -2,7 +2,7 @@
         *File: app.js
         *Author: Asad Memon / Osman Ali Mian
         *Last Modified: 5th June 2014
-        *Revised on: 30th June 2014 (Introduced Express-Brute for Bruteforce protection)
+        *Revised on: 30th June 2014 (Introduced Express-Brute for Bruteforce pnotection)
 */
 
 
@@ -37,7 +37,6 @@ function random(size) {
     return require("crypto").randomBytes(size).toString('hex');
 }
 
-
 app.post('/compile',bruteforce.prevent,function(req, res) 
 {
 
@@ -50,7 +49,8 @@ app.post('/compile',bruteforce.prevent,function(req, res)
     var path=__dirname+"/"; //current working path
     var vm_name='remotecompiler'; //name of virtual machine that we want to execute
     var timeout_value=20;//Timeout Value, In Seconds
-
+console.log(req.body.code);
+console.log(code);
     //details of this are present in DockerSandbox.js
     var sandboxType = new sandBox(timeout_value,path,folder,parameters,vm_name,arr.compilerArray[language][0],arr.compilerArray[language][1],code,arr.compilerArray[language][2],arr.compilerArray[language][3],arr.compilerArray[language][4],stdin);
 
@@ -59,8 +59,14 @@ app.post('/compile',bruteforce.prevent,function(req, res)
     //the result maybe normal program output, list of error messages or a Timeout error
     sandboxType.run(function(data,exec_time,err)
     {
+        //Terrible hack pour empêcher le crash. À RÉGLER!!!
+        try{
         //console.log("Data: received: "+ data)
-    	res.send({output:data, langid: language,code:code, errors:err, time:exec_time});
+    	    res.send({output:data, langid: language,code:code, errors:err, time:exec_time});
+        }
+	catch(err){
+	    console.log(err);
+	}
     });
    
 });
