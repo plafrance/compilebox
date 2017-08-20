@@ -2,7 +2,7 @@
         *File: app.js
         *Author: Asad Memon / Osman Ali Mian
         *Last Modified: 5th June 2014
-        *Revised on: 30th June 2014 (Introduced Express-Brute for Bruteforce protection)
+        *Revised on: 30th June 2014 (Introduced Express-Brute for Bruteforce pnotection)
 */
 
 
@@ -73,8 +73,14 @@ app.post('/compile',function(req, res)
     else{
     sandboxType.run(function(data,exec_time,err)
     {
+        //Terrible hack pour empêcher le crash. À RÉGLER!!!
+        try{
         //console.log("Data: received: "+ data)
-    	res.send({output:data, langid: language,code:code, errors:err, time:exec_time});
+    	    res.send({output:data, langid: language,code:code, errors:err, time:exec_time});
+        }
+	catch(err){
+	    console.log(err);
+	}
     });
     }
    
